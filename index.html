@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Assessment</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+	<!-- Styles -->
+	<style type="text/css">
+		/* Common Styles */
+		h1, h2, h3, h4, h5, h6, p, a, span {  font-family: 'Gothic A1', sans-serif; }
+		body {margin: 0; }
+		.model_outer_wrap {display:none;position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; background-color: #4c4c4c; }
+		.model_inner_wrap {     position: absolute; background-color: #fdd501; margin: 0; top: 50%; left: 50%; padding: 35px; border: 1px solid #888; transform: translate(-50%, -50%); width: 52%; box-sizing: border-box;}
+		button.close_btn {position: absolute; right: 16px; top: 13px; background: transparent !important; border: none !important; outline: none; font-size: 23px; font-weight: 700; cursor: pointer; }
+		.model_popup_content_outer_wrap {display: flex; justify-content: flex-start; align-items: stretch; }
+		.already_visited_inner_wrap button {border: none; background: #fdd501; display: block; padding: 14px 35px; font-size: 16px; cursor: pointer; font-weight: 600;  -webkit-transition: all 0.4s ease-in-out; -moz-transition: all 0.4s ease-in-out; -ms-transition: all 0.4s ease-in-out; -o-transition: all 0.4s ease-in-out; transition: all 0.4s ease-in-out; }
+		.already_visited_inner_wrap button:hover {background: #000; color: #fff; -webkit-transition: all 0.4s ease-in-out; -moz-transition: all 0.4s ease-in-out; -ms-transition: all 0.4s ease-in-out; -o-transition: all 0.4s ease-in-out; transition: all 0.4s ease-in-out; }
+		.input_outer_wrap {margin-bottom: 15px; }
+		.banner_img_outer_wrap img {width: 100%; height: 100%; object-fit: contain; }
+		.model_popup_content_right_wrap {flex: 0 0 35%; display: flex; justify-content: center; align-items: center; }
+		.model_popup_content_left_wrap {flex: 0 0 65%; padding-right: 45px;
+    box-sizing: border-box; }
+
+		.model_popup_content_left_wrap h4 { text-align: center; font-size: 23px; text-transform: uppercase; margin: 0; font-family: 'Gothic A1', sans-serif; font-weight: 800; }
+		.model_popup_content_left_wrap h5 {margin-top: 0; margin-bottom: 12px; font-family: 'Gothic A1', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 25px; text-align: center; }
+		.model_popup_content_left_wrap input[type="text"], .model_popup_content_left_wrap input[type="email"] {height: 54px; border: none; border-radius: 5px; padding: 0px 13px; display: flex; flex: 0 0 100%; width: 100%; box-sizing: border-box; outline: none; }
+		.model_popup_content_left_wrap input:focus { outline: none; }
+		.error-msg { color: #f00; font-size: 13px; font-family: 'Gothic A1', sans-serif; padding-top: 9px; display: block; font-weight: 600; }
+		.check_box_outer_wrap {display: flex; justify-content: flex-start; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
+		.check_box_outer_wrap label {font-family: 'Gothic A1', sans-serif; font-size: 15px; line-height: 25px; font-weight: 500; padding-left: 5px; }
+		.model_popup_content_left_wrap button { outline: none !important; border: none; background-color: #000000; color: #fff; display: flex; justify-content: center; align-items: center; width: 100%; height: 57px; font-size: 17px; text-transform: uppercase; margin-bottom: 15px; -webkit-transition: all 0.4s ease-in-out; -moz-transition: all 0.4s ease-in-out; -ms-transition: all 0.4s ease-in-out; -o-transition: all 0.4s ease-in-out; transition: all 0.4s ease-in-out;} 
+		.model_popup_content_left_wrap button:hover {border: 2px solid #000; color: #000; cursor: pointer; background: transparent; -webkit-transition: all 0.4s ease-in-out; -moz-transition: all 0.4s ease-in-out; -ms-transition: all 0.4s ease-in-out; -o-transition: all 0.4s ease-in-out; transition: all 0.4s ease-in-out; }
+		.check_box_outer_wrap input {width: 17px; height: 17px; margin: 0; }
+		.model_popup_content_left_wrap a {color: #000; text-transform: uppercase; text-align: center; width: 100%; display: block; font-family: 'Gothic A1', sans-serif; font-size: 12px; font-weight: 600; }
+		.box_wrap {max-width: 1024px; margin: 0 auto; }
+		div#thankyou h2 {text-align: center; height: 300px; display: flex; justify-content: center; align-items: center; position: relative; background: #fff; box-shadow: 0px 0px 4px 1px #0000006b; border-radius: 10px; max-width: 480px; margin: 71px auto; box-sizing: border-box; padding: 0 70px; line-height: 43px; }
+		div#thankyou h2:before {content: "L"; -ms-transform: scaleX(-1) rotate(-35deg); -webkit-transform: scaleX(-1) rotate(-35deg); transform: scaleX(-1) rotate(-35deg); position: absolute; top: 47px; background: #4fff00; width: 46px; height: 46px; display: flex; justify-content: center; align-items: center; border-radius: 50px; color: #fff; }
+		.already_visited_inner_wrap { text-align: center; height: 300px; display: flex; justify-content: center; align-items: center; position: relative; background: #fff; box-shadow: 0px 0px 4px 1px #0000006b; border-radius: 10px; max-width: 480px; margin: 71px auto; box-sizing: border-box; padding: 0 70px; line-height: 43px; flex-direction: column; }
+		#mobile_newsletter_model { display:none }
+
+	/* Media Query */
+	@media(max-width:1366px){
+		.model_inner_wrap { width: 62%; }
+	}
+
+	@media(max-width:1199px){
+		.model_inner_wrap {width: 72%; }
+		.model_popup_content_left_wrap h4 {font-size: 21px;}
+		.model_popup_content_left_wrap h5 { font-size:22px; }
+	}
+
+	@media(max-width:992px){
+		.model_inner_wrap {width: 83%; }
+		.model_popup_content_left_wrap h4 {font-size: 18px; }
+		.model_popup_content_left_wrap h5 {font-size: 19px; }
+		.model_popup_content_left_wrap button {height: 47px; font-size: 16px;}
+		.model_popup_content_left_wrap input[type="text"], .model_popup_content_left_wrap input[type="email"] {height: 46px;}
+
+	}
+
+	@media(max-width:767px){
+		#newsletter_model { display:none !important; }
+		.model_popup_content_left_wrap {flex: 0 0 100%; padding-right: 0px;}
+		.model_inner_wrap {width: 91%; }
+		.model_outer_wrap { overflow: auto; }
+		div#already_visited, div#thankyou {margin: 0 25px; }
+		#loading { margin-left: 20px; }
+
+	}
+
+	@media(max-width:480px){
+		.model_inner_wrap {padding: 45px 20px;}
+		.model_popup_content_left_wrap h4 {font-size: 16px; margin-bottom: 3px; }
+		.model_popup_content_left_wrap h5 {font-size: 16px; }
+		.check_box_outer_wrap label {font-size: 15px;}
+		button.close_btn {position: absolute; right: 5px; top: 5px; background: transparent !important; border: none !important; outline: none; font-size: 18px; font-weight: 700; cursor: pointer; }
+		div#thankyou h2 {padding: 0 20px; }
+
+
+
+	}
+
+	@media(max-width:420px){
+		.model_inner_wrap {padding: 45px 20px;}
+		.model_popup_content_left_wrap h4 {font-size: 13px; margin-bottom: 3px; }
+		.model_popup_content_left_wrap h5 {font-size: 14px; }
+		.check_box_outer_wrap label {font-size: 11px;}
+		button.close_btn {position: absolute; right: 5px; top: 5px; background: transparent !important; border: none !important; outline: none; font-size: 18px; font-weight: 700; cursor: pointer; }
+	}
+
+	</style>
+  </head>
+  <body>
+  	<!-- Desktop Model Popup -->
+    <div class="model_outer_wrap" id="newsletter_model">
+    	<div class="model_inner_wrap">
+    		<button type="button" onclick="close_popup()" class="close_btn">&#x2715</button>
+    		<div class="model_popup_content_outer_wrap">
+    			<div class="model_popup_content_left_wrap">
+		    		<form>
+		    			<h4>Get $10 Off when you sign up for</h4>
+		    			<h5>Saving,News,updates and More</h5>
+		    			<div class="input_outer_wrap">
+			    			<input type="text" name="your_name" id="your_name" placeholder="Your Name">
+			    		</div>
+			    		<div class="input_outer_wrap">
+				    		<input type="email" name="email" id="your_email" placeholder="Your Email">
+				    		<span class="error-msg" id="email_error"></span>
+				    	</div>
+			    		<div class="check_box_outer_wrap">
+			    			<input type="checkbox" name="newsletter" id="news_letter" >
+			    			<label for="news_letter">Check this box to receive monthly newsletter</label>
+			    			<span class="error-msg" id="check_error" style="display:none;">Please Check the Monthly Newsletter</span>
+			    		</div>
+			    		<button type="button" onclick="newletter_valitation()">Sign up</button>
+			    		<a href="#">Privacy policy</a>
+			    	</form>
+			    </div>
+			    <div class="model_popup_content_right_wrap">
+			    	<div class="banner_img_outer_wrap">
+			    		<img src="assets/image/banner_img.png" alt="banner_img">
+			    	</div>
+			    </div>
+		    </div>
+    	</div>
+    </div>
+    <!-- End Desktop Model Popup -->
+    <!-- Mobile Model Popup -->
+    <div class="model_outer_wrap" id="mobile_newsletter_model">
+    	<div class="model_inner_wrap">
+    		<button type="button" onclick="close_popup()" class="close_btn">&#x2715</button>
+    		<div class="model_popup_content_outer_wrap">
+    			<div class="model_popup_content_left_wrap">
+		    		<form>
+		    			<h4>Get $10 Off when you sign up for</h4>
+		    			<h5>Saving,News,updates and More</h5>
+		    			<div class="input_outer_wrap">
+			    			<input type="text" name="your_name" id="mob_your_name" placeholder="Your Name">
+			    		</div>
+			    		<div class="input_outer_wrap">
+				    		<input type="email" name="email" id="mob_your_email" placeholder="Your Email">
+				    		<span class="error-msg" id="mob_email_error"></span>
+				    	</div>
+			    		<div class="check_box_outer_wrap">
+			    			<input type="checkbox" name="newsletter" id="mob_news_letter" >
+			    			<label for="mob_news_letter">Check this box to receive monthly newsletter</label>
+			    			<span class="error-msg" id="mob_check_error" style="display:none;">Please Check the Monthly Newsletter</span>
+			    		</div>
+			    		<button type="button" onclick="newletter_valitation()">Sign up</button>
+			    		<a href="#">Privacy policy</a>
+			    	</form>
+			    </div>
+		    </div>
+    	</div>
+    </div>
+    <!-- End Mobile Popup -->
+    <div class="box_wrap">
+    	<!-- For Already Visited User -->
+	    <div id="already_visited" style="display:none;">
+	    	<div class="already_visited_inner_wrap">
+		    	<h2>Your Already viewed the Newsletter</h2>
+		    	<button type="button" onclick="clear_Cookie()">Clear Cookie</button>
+		    </div>
+	    </div>
+	    <!-- For Thankyou Message -->
+	    <div id="thankyou" style="display:none;">
+	    	<h2>Thankyou For Signup Newsletter</h2>
+	    </div>
+	    <div id="loading" style="display:none;">
+	    	<h2>Loading <span id="seconds">5</span> Seconds...</h2>
+	    </div>
+    </div>
+
+    <!-- Script -->
+    <script type="text/javascript">
+    	var modal = document.getElementById("newsletter_model");
+    	var mobile_modal = document.getElementById("mobile_newsletter_model");
+    	var screensize = screen.width;
+
+    	function clear_Cookie(){
+    		document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    		console.log("Cookies Cleared");
+    		location.reload();
+    	}
+    	if(screensize>=768){
+    		function checkuser() {
+			  let user = getCookie("username");
+			  if (user != "") {
+			    modal.style.display = "none";
+			    document.getElementById("already_visited").style.display = "block";
+			    console.log("Already signup User or Visited");
+			  } else {
+			      modal.style.display = "block";
+			      console.log("New user");
+			  }
+			}
+			window.onload = checkuser;
+			function newletter_valitation(){
+				var user = document.getElementById("your_name").value;
+				var email = document.getElementById("your_email").value;
+				var checkBox = document.getElementById("news_letter");
+	    		
+				if(email == "" || email == null){
+					document.getElementById("email_error").innerHTML = "Please enter your email";
+
+				} else{
+				 	document.getElementById("email_error").innerHTML = "";
+				}
+
+
+				var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+				if(email != "" && email != null){
+					if (!filter.test(email)){
+					document.getElementById("email_error").innerHTML = "Please enter a valid email address";
+					}
+					else {
+						document.getElementById("email_error").innerHTML = "";
+					}
+				}
+
+				if(checkBox.checked == false){
+					document.getElementById("check_error").style.display = 'block';
+					
+				}else{
+					document.getElementById("check_error").style.display = 'none';
+				}
+
+				if( email != "" && email != null && filter.test(email) && checkBox.checked == true){
+					setUserCookie("username", user);
+					modal.style.display = "none";
+					document.getElementById("thankyou").style.display = 'block';
+					console.log("Cookies created Username " + user );
+
+
+				}
+			}
+			function close_popup(){
+				modal.style.display = "none";
+				let user = getCookie("username");
+				if (user == "" || user == null) {
+			       setUserCookie("username", "DummyUser");
+			       document.getElementById("already_visited").style.display = "block";
+			       console.log("When popup closed before fill the form, Cookie is created" );
+			     }
+			}
+    	}else{
+    		timeLeft = 5;
+			function countdown() {
+				timeLeft--;
+				document.getElementById("seconds").innerHTML = String( timeLeft );
+				if (timeLeft > 0) {
+					setTimeout(countdown, 1000);
+				}
+			};
+			setTimeout(countdown, 1000);
+
+    		function mobilecheckuser() {
+			  let user = getCookie("username");
+			  if (user != "") {
+			    mobile_modal.style.display = "none";
+			    document.getElementById("already_visited").style.display = "block";
+			    console.log("Already signup User or Visited");
+			  } else {
+			  	  document.getElementById("loading").style.display = "none";
+			      mobile_modal.style.display = "block";
+				console.log("New user");
+			  }
+			}
+			setTimeout("mobilecheckuser()", 5000);
+
+			function mobilecheckuse() {
+			  let user = getCookie("username");
+			  if (user != "") {
+			    document.getElementById("already_visited").style.display = "block";
+			    console.log("Already signup User or Visited");
+			  }else{
+			  	document.getElementById("loading").style.display = "block";
+			  }
+			}
+			window.onload = mobilecheckuse;
+
+			function newletter_valitation(){
+				var user = document.getElementById("mob_your_name").value;
+				var email = document.getElementById("mob_your_email").value;
+				var checkBox = document.getElementById("mob_news_letter");
+				if(email == "" || email == null){
+					document.getElementById("mob_email_error").innerHTML = "Please enter your email";
+
+				} else{
+				 	document.getElementById("mob_email_error").innerHTML = "";
+				}
+
+
+				var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+				if(email != "" && email != null){
+					if (!filter.test(email)){
+					document.getElementById("mob_email_error").innerHTML = "Please enter a valid email address";
+					}
+					else {
+						document.getElementById("mob_email_error").innerHTML = "";
+					}
+				}
+
+				if(checkBox.checked == false){
+					document.getElementById("mob_check_error").style.display = 'block';
+					
+				}else{
+					document.getElementById("mob_check_error").style.display = 'none';
+				}
+
+				if( email != "" && email != null && filter.test(email) && checkBox.checked == true){
+					setUserCookie("username", user);
+					mobile_modal.style.display = "none";
+					document.getElementById("thankyou").style.display = 'block';
+					console.log("Cookies created Username " + user );
+
+
+				}
+			}
+			function close_popup(){
+				mobile_modal.style.display = "none";
+				let user = getCookie("username");
+				if (user == "" || user == null) {
+			       setUserCookie("username", "DummyUser");
+			       document.getElementById("already_visited").style.display = "block";
+			       console.log("When popup closed before fill the form, Cookie is created" );
+			     }
+			}
+    	}
+    	
+
+		function getCookie(cname) {
+		  let name = cname + "=";
+		  let decodedCookie = decodeURIComponent(document.cookie);
+		  let ca = decodedCookie.split(';');
+		  for(let i = 0; i < ca.length; i++) {
+		    let c = ca[i];
+		    while (c.charAt(0) == ' ') {
+		      c = c.substring(1);
+		    }
+		    if (c.indexOf(name) == 0) {
+		      return c.substring(name.length, c.length);
+		    }
+		  }
+		  return "";
+		}
+
+
+		
+
+		function setUserCookie(cname,cvalue){
+			var expiration_date = new Date();
+			expiration_date.setFullYear(expiration_date.getFullYear() + 1);
+			let expires = "expires=" + expiration_date.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+		
+
+    </script>
+
+
+
+  </body>
+</html>
