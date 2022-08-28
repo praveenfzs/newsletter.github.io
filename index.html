@@ -106,6 +106,7 @@
 		    			<h5>Saving,News,updates and More</h5>
 		    			<div class="input_outer_wrap">
 			    			<input type="text" name="your_name" id="your_name" placeholder="Your Name">
+                                                <span class="error-msg" id="user_error"></span>
 			    		</div>
 			    		<div class="input_outer_wrap">
 				    		<input type="email" name="email" id="your_email" placeholder="Your Email">
@@ -140,6 +141,7 @@
 		    			<h5>Saving,News,updates and More</h5>
 		    			<div class="input_outer_wrap">
 			    			<input type="text" name="your_name" id="mob_your_name" placeholder="Your Name">
+                                                <span class="error-msg" id="mob_user_error"></span>
 			    		</div>
 			    		<div class="input_outer_wrap">
 				    		<input type="email" name="email" id="mob_your_email" placeholder="Your Email">
@@ -204,7 +206,13 @@
 				var email = document.getElementById("your_email").value;
 				var checkBox = document.getElementById("news_letter");
 	    		
-				if(email == "" || email == null){
+				if(user == "" || user == null){
+					document.getElementById("user_error").innerHTML = "Please enter your name";
+				} else{
+				 	document.getElementById("user_error").innerHTML = "";
+				}
+
+                                if(email == "" || email == null){
 					document.getElementById("email_error").innerHTML = "Please enter your email";
 
 				} else{
@@ -287,6 +295,12 @@
 				var user = document.getElementById("mob_your_name").value;
 				var email = document.getElementById("mob_your_email").value;
 				var checkBox = document.getElementById("mob_news_letter");
+                                
+                                if(user == "" || user == null){
+					document.getElementById("mob_user_error").innerHTML = "Please enter your name";
+				} else{
+				 	document.getElementById("mob_user_error").innerHTML = "";
+				}
 				if(email == "" || email == null){
 					document.getElementById("mob_email_error").innerHTML = "Please enter your email";
 
